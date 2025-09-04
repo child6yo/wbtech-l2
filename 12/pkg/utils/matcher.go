@@ -17,10 +17,9 @@ func CompileMatcher(pattern string, caseInsensitive, fixedTemplate bool) Matcher
 			return func(line string) bool {
 				return strings.Contains(strings.ToLower(line), pattern)
 			}
-		} else {
-			return func(line string) bool {
-				return strings.Contains(line, pattern)
-			}
+		}
+		return func(line string) bool {
+			return strings.Contains(line, pattern)
 		}
 	}
 
