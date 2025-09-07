@@ -29,6 +29,41 @@ var (
 	flagU bool
 )
 
+func main() {
+	pflag.StringVarP(&flagF, "file", "f", "", "defines file path")
+	pflag.Int64VarP(&flagK, "k", "k", 0, "sort by column")
+	pflag.BoolVarP(&flagN, "n", "n", false, "sort by number value")
+	pflag.BoolVarP(&flagR, "r", "r", false, "reverse sort")
+	pflag.BoolVarP(&flagU, "u", "u", false, "only unique strings")
+	pflag.Parse()
+
+	reader, err := openInput()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	lines, err := scanInput(reader)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if flagK != 0 {
+		arguments.ColSort(lines, int(flagK)-1, flagN)
+	} else if flagN {
+		arguments.NumSort(lines)
+	} else {
+		arguments.BasicSort(lines)
+	}
+
+	if flagR {
+		arguments.Reverse(*lines)
+	}
+
+	writer := bufio.NewWriter(os.Stdout)
+	defer writer.Flush()
+	writeOutput(writer, *lines)
+}
+
 func openInput() (io.ReadCloser, error) {
 	// чтение из stdin
 	if flagF == "" {
@@ -70,39 +105,4 @@ func writeOutput(w *bufio.Writer, output []string) {
 	for _, line := range output {
 		fmt.Fprintln(w, line)
 	}
-}
-
-func main() {
-	pflag.StringVarP(&flagF, "file", "f", "", "defines file path")
-	pflag.Int64VarP(&flagK, "k", "k", 0, "sort by column")
-	pflag.BoolVarP(&flagN, "n", "n", false, "sort by number value")
-	pflag.BoolVarP(&flagR, "r", "r", false, "reverse sort")
-	pflag.BoolVarP(&flagU, "u", "u", false, "only unique strings")
-	pflag.Parse()
-
-	reader, err := openInput()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	lines, err := scanInput(reader)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if flagK != 0 {
-		arguments.ColSort(lines, int(flagK)-1, flagN)
-	} else if flagN {
-		arguments.NumSort(lines)
-	} else {
-		arguments.BasicSort(lines)
-	}
-
-	if flagR {
-		arguments.Reverse(*lines)
-	}
-
-	writer := bufio.NewWriter(os.Stdout)
-	defer writer.Flush()
-	writeOutput(writer, *lines)
 }
