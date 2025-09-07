@@ -1,0 +1,9 @@
+4096\tSep\t3\t20:19\topenvpn.log.2.gz
+14721\tMar\t32\t18:47\tvsftpd.log.2.gz
+10723\tMar\t1\t23:53\tdovecot.log.2.gz
+281146\tMar\t5\t23:59\tfail2ban.log.2.gz
+1190971\tMar\t547\t00:00\tauth.log.2.gz
+4096\tSep\t3\t20:19\topenvpn.log.2.gz
+14721\tMar\t32\t18:47\tvsftpd.log.2.gz
+10723\tMar\t1\t23:53\tdovecot.log.2.gz
+281146
