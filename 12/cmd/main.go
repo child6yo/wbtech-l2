@@ -43,7 +43,7 @@ func init() {
 	pflag.BoolVarP(&onlyNumLines, "num-lines", "c", false, "print only amount of lines")
 	pflag.BoolVarP(&caseInsensitive, "ignore-case", "i", false, "ignore case distinctions in patterns")
 	pflag.BoolVarP(&invertTemplate, "invert", "v", false, "print lines that not match template")
-	pflag.BoolVarP(&invertTemplate, "fixed-template", "F", false, "template like fixed string (not regexp)")
+	pflag.BoolVarP(&fixedTemplate, "fixed-template", "F", false, "template like fixed string (not regexp)")
 	pflag.BoolVarP(&showLineNumbers, "line-number", "n", false, "print line numbers")
 
 	pflag.CommandLine.SetNormalizeFunc(pflag.CommandLine.GetNormalizeFunc())
