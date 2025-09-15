@@ -150,6 +150,7 @@ func handleStopSignal() {
 
 	go func() {
 		for range sigChan {
+			fmt.Println()
 			fmt.Print("> ")
 		}
 	}()
