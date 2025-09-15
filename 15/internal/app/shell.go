@@ -18,6 +18,7 @@ import (
 var ErrNoPath = errors.New("path required")
 var ErrIntArg = errors.New("integer argument needed")
 
+// StartShell запускает работу терминала.
 func StartShell() {
 	handleStopSignal()
 
@@ -43,6 +44,8 @@ func StartShell() {
 		}
 	}
 }
+
+var runCommandFunc = runCommand 
 
 func execInput(input string, writer io.Writer) error {
 	input = strings.TrimSpace(input)
@@ -72,7 +75,7 @@ func execInput(input string, writer io.Writer) error {
 	commands = append(commands, current)
 
 	if len(commands) == 1 {
-		return runCommand(commands[0], nil, writer)
+		return runCommandFunc(commands[0], nil, writer)
 	}
 
 	var prevOutput string
@@ -92,7 +95,7 @@ func execInput(input string, writer io.Writer) error {
 			stdoutWriter = &buf
 		}
 
-		err := runCommand(cmdArgs, stdinReader, stdoutWriter)
+		err := runCommandFunc(cmdArgs, stdinReader, stdoutWriter)
 		if err != nil {
 			return err
 		}
