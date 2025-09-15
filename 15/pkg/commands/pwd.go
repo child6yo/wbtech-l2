@@ -1,17 +1,22 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"os"
 )
 
-func PrintWorkingDirectory(output io.Writer) error {
+// PrintWorkingDirectory печатает текущую рабочую директорию в output.
+func PrintWorkingDirectory(writer io.Writer) error {
+	if writer == nil {
+		return errors.New("nil input")
+	}
 	dir, err := os.Getwd()
 	if err != nil {
 		return err
 	}
-	_, err = fmt.Fprintln(output, dir)
+	_, err = fmt.Fprintln(writer, dir)
 
 	return err
 }

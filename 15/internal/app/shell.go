@@ -123,7 +123,7 @@ func runCommand(args []string, reader io.Reader, writer io.Writer) error {
 		}
 		return commands.KillProcess(pid)
 	case "ps":
-		// TODO: for linux
+		return commands.PrintProcesses(writer)
 	default:
 		cmd := exec.Command(args[0], args[1:]...)
 
@@ -133,8 +133,6 @@ func runCommand(args []string, reader io.Reader, writer io.Writer) error {
 
 		return cmd.Run()
 	}
-
-	return nil
 }
 
 func parseIntArg(arg string) (int, error) {
